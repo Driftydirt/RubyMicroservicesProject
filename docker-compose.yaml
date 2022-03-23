@@ -14,7 +14,7 @@ services:
     
     web:
         build: .
-        image: yourfootprint
+        image: webcalendar
         ports:
             - 3000:3000
         volumes:
