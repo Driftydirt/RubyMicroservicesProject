@@ -27,16 +27,6 @@ For example:
 your code here
 ```
 ## Troubleshooting
-### MySQL container
-To access the database container directly use:
-```bash
-docker exec -it calendar_db_1 /bin/bash -il
-```
-To access the database from there use:
-```bash
-mysql -u admin -p docker 
-```
-The password is currenty: "admin"
 ### Database unknown
 If you get the error:
 ```bash
