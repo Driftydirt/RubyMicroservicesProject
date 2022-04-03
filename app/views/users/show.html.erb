@@ -1,0 +1,46 @@
+<%= link_to "Back", :back, class: "btn btn-success" %>
+<div class="row pt-5 main-row">
+    <div class="container p-5">
+      <div class="row">
+        <h1 class="display-2 text-center black col"><small class="text-muted">Your Profile</small></h1>
+      </div>
+      <div class = "row pt-5">
+        <div class="col-lg-6 offset-lg-3 pt-4 text-box">
+        <div class="row">
+          <h1 class="text-center title">Your Details</h3>
+          <hr>
+        </div>
+        <div class="row">
+            <div class="col-md-3 pt-2">
+                <label class="form-label paragraph">Name:</label>
+            </div>
+            <div class="col-md-6 pt-2">
+                <p class="paragraph"><%=current_user.firstname %> <%=current_user.lastname %></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 pt-2">
+                <label class="form-label paragraph">Username:</label>
+            </div>
+            <div class="col-md-6 pt-2">
+                <p class="paragraph"><%=current_user.username %></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 pt-2">
+                <label class="form-label paragraph">Email:</label>
+            </div>
+            <div class="col-md-6 pt-2">
+                <p class="paragraph"><%=current_user.email %></p>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 offset-md-4 text-center">
+            <%= link_to 'Change Profile Information', url="/users/edit", class: "btn btn-info btn-md" %>
+          </div>  
+      </div>
+      </div>
+      
+    </div>
+
+</div>

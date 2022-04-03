@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3 text-box">
+    <h2 class="text-center">Sign up</h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="paragraph">
+        <div class="field row", style="margin-top: 10px;">
+          <%= f.label :username, class: "col-sm-4 text-sm-end" %><br />
+          <%= f.text_field :username, autofocus: true, autocomplete: "username", class:"col-sm-7"  %>
+        </div>
+
+        <div class="field row", style="margin-top: 10px;">
+          <%= f.label :firstname, class: "col-sm-4 text-sm-end" %><br />
+          <%= f.text_field :firstname, autofocus: true, autocomplete: "firstname", class:"col-sm-7"  %>
+        </div>
+
+        <div class="field row", style="margin-top: 10px;">
+          <%= f.label :lastname, class: "col-sm-4 text-sm-end" %><br />
+          <%= f.text_field :lastname, autofocus: true, autocomplete: "lastname", class:"col-sm-7"  %>
+        </div>
+
+        <div class="field row", style="margin-top: 10px;">
+          <%= f.label :email, class: "col-sm-4 text-sm-end" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"col-sm-7"  %>
+        </div>
+
+        <div class="field row", style="margin-top: 10px;">
+          <%= f.label :password, class: "col-sm-4 text-sm-end" %>
+          <div class="col-sm-7">
+            <div class="row">
+              <%= f.password_field :password, autocomplete: "new-password", class:"col" %>
+            </div>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %>
+          </div>  
+        </div>
+
+        <div class="field row", style="margin-top: 10px;">
+          <%= f.label :password_confirmation, class: "col-sm-4 text-sm-end" %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"col-sm-7"  %>
+        </div>
+
+        <div class="actions text-center">
+          <%= f.submit "Sign up", class: "btn btn-info text-center margin_top" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+    <%= render "devise/shared/links" %>
