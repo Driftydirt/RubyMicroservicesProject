@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row pt-5">
   <div class="col-md-6 offset-md-3 text-box">
     <h2 class="text-center">Sign up</h2>
 
@@ -49,4 +49,6 @@
     <% end %>
   </div>
 </div>
-    <%= render "devise/shared/links" %>
+<div class="col offset-sm-3">
+  <%= link_to "Log In", new_user_session_path, class: "btn btn-info text-center margin_top" %>
+</div>

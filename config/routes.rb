@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   root 'home#home'
 
   get 'user', to: 'user#show'
+  get 'users/password/new', to: 'devise/passwords#new', as: 'password_reset'
 
 end
