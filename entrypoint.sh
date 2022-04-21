@@ -10,14 +10,14 @@ rm -f /tmp/pids/server.pid
 # Check and wait for mysql container to be setup and connected
 echo "Waiting for MySQL DB connection ..."
 
-status=$(nc -z db 3306; echo $?)
+status=$(nc -z db_primary 3306; echo $?)
 echo $status
 
 while [ $status != 0 ]
 do
   echo "Waiting 3s ..."
   sleep 3s
-  status=$(nc -z db 3306; echo $?)
+  status=$(nc -z db_primary 3306; echo $?)
   echo $status
 done
 
@@ -42,6 +42,9 @@ echo "DB is up ..."
 # printf "\nPushing seeds to database ...\n"
 # printf "[rake db:seed]\n"
 # rake db:seed
+
+RAILS_ENV=development rails db:environment:set
+
 
 # Reseting database (dropping previous, creating and migrating fresh db)
 printf "\nResetting database ...\n"

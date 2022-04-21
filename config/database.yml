@@ -1,17 +1,33 @@
-default: &default
-  adapter: mysql2
-  encoding: utf8
-  host: db
-  username: root
-  password: group24
-  # username: admin
-  # password: admin
-
 development:
-  <<: *default
-  database: docker_dev
+  primary:
+    adapter: mysql2
+    encoding: utf8
+    host: db_primary
+    username: root
+    password: group24
+    database: docker_dev
+  auth:
+    adapter: mysql2
+    encoding: utf8
+    host: db_auth
+    username: root
+    password: group24
+    database: auth
+    port: 3307
 
 test:
-  <<: *default
-  database: docker_test
-
+  primary:
+    adapter: mysql2
+    encoding: utf8
+    host: db_primary
+    username: root
+    password: group24
+    database: docker_dev
+  auth:
+    adapter: mysql2
+    encoding: utf8
+    host: db_auth
+    username: root
+    password: group24
+    database: auth
+    port: 3307
