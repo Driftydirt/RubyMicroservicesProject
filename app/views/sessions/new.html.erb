@@ -3,7 +3,7 @@
   <div class="col-sm-4 offset-sm-4 text-box">
     <h2 class="text-center">Log in</h2>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= form_for @login_validation, as: :login_validation, url: login_send_path do |f| %>
       <div class="paragraph">
         <div class="field row", style="margin-top: 10px;">
           <%= f.label :email, class: "col-sm-4 text-sm-end"%><br />
@@ -14,30 +14,45 @@
           <%= f.label :password, class: "col-sm-4 text-sm-end" %><br />
           <%= f.password_field :password, autocomplete: "current-password", class:"col-sm-7" %>
         </div>
+        <% if @login_error != "" %>
+            <div class="row field">
+              <div class="alert alert-danger error_message offset-sm-4 col-sm-7" role="alert">
+                <%= @login_error %>
+              </div>
+            </div>
+          <% end %>
+          <% if @login_validation.errors.full_messages.any? %>
+            <% @login_validation.errors.full_messages.each do |error_message| %>
+              <div class="row field">
+                <div class="alert alert-danger error_message offset-sm-4 col-sm-7" role="alert">
+                  <%= error_message %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
         <div class="row", style="margin-top: 10px;">
           <div class="col-md-4">
           </div>
-          <div class="col", style="padding-left:0px;">
-            <% if devise_mapping.rememberable? %>
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
-            <% end %>
-          </div>  
-          <div class="col text-sm-end", style="padding-right:0px;">
+          
+          
+          <div class="col-sm-7", style="padding-left:0px;">
             <%= link_to "Forgot Password?", password_reset_path,  class: 'btn btn-info btn-md' %>
           </div>
           <div class="col-md-1">
           </div>
         </div>
+        
         <div class="actions text-center">
           <%= f.submit "Log in", class: "btn btn-info text-center margin_top" %>
         </div>
       </div>
     <% end %>
   </div>
+  
+  
   <div class="row">
     <div class="col offset-sm-4">
-      <%= link_to "Create Account", new_user_registration_path, class: "btn btn-info text-center margin_top" %>
+      <%= link_to "Create Account", sign_up_path, class: "btn btn-info text-center margin_top" %>
     </div>
   </div>
 </div>

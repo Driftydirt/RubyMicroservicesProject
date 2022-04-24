@@ -3,21 +3,26 @@ class ApplicationController < ActionController::Base
 
     protected
    
-    def login(loginParams)
+    def login_http(loginParams)
         login = HTTParty.post('http://172.17.0.1:3001/api/login', :body => {
               :user => {
               :email => loginParams['email'],
               :password => loginParams['password'] }
       }.to_json,
       :headers => { 'Content-Type' => 'application/json'})
+      
+      if login["error"] != nil
+        @login_error = "Email or Password are invalid"
+        render 'new', status: :unprocessable_entity
+      else
+        session[:user_id] = login['data']['id']
 
-      session[:user_id] = login['data']['id']
+        session[:jwt_token] = login.header['authorization']
 
-      session[:jwt_token] = login.header['authorization']
+        session[:logged_in] = true
 
-      session[:logged_in] = true
-
-      render "home"
+        redirect_to root_path
+      end
     end
 
     def auth
@@ -29,7 +34,7 @@ class ApplicationController < ActionController::Base
         session[:logged_in] = false
       end
       
-      render "home"
+      redirect_to root_path
     end 
 
     def sign_up_http(sign_up_params)

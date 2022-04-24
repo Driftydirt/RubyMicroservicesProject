@@ -12,12 +12,10 @@
 
   <body>
     <%= yield %>
-    <%= link_to "Authorize", home_test_auth_path, class: 'btn btn-warning btn-md' %>
-
     <% if session[:logged_in] %>
       <%= link_to "Logout", home_test_log_out_path, class: 'btn btn-warning btn-md' %>
     <% else %>
-      <%= link_to "Login", home_test_path,  class: 'btn btn-info btn-md' %>
+      <%= link_to "Login", login_path,  class: 'btn btn-info btn-md' %>
       <%= link_to "Sign up", sign_up_path,  class: 'btn btn-info btn-md' %>
     <% end %>
 

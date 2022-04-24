@@ -14,5 +14,7 @@ Rails.application.routes.draw do
   get 'home/test_auth', to: 'home#test_auth'
   get 'sign_up', to: 'registrations#new'
   post 'sign_up/send', to: 'registrations#sign_up'
+  get 'login', to: 'sessions#new'
+  post 'login/send', to: 'sessions#login'
 
 end
