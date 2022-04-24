@@ -29,12 +29,9 @@ class ApplicationController < ActionController::Base
       auth = HTTParty.post('http://172.17.0.1:3001/auth', :headers => { 'Content-Type' => 'application/json', 'Authorization' => session[:jwt_token]})
       puts auth["message"]
       if auth["message"] == "User Authenticated." 
-        puts "authenticated" 
       else 
         session[:logged_in] = false
       end
-      
-      redirect_to root_path
     end 
 
     def sign_up_http(sign_up_params)
@@ -45,7 +42,6 @@ class ApplicationController < ActionController::Base
               }}.to_json,
               :headers => { 'Content-Type' => 'application/json'})
 
-      puts sign_up
       if sign_up['errors'] != nil
         session[:http_errors] = sign_up['errors']
         redirect_to sign_up_path
@@ -56,7 +52,6 @@ class ApplicationController < ActionController::Base
 
         user = User.new(:auth_id => session[:user_id])
         user.save!
-        puts "kill"
         redirect_to root_path
       end
 
@@ -67,7 +62,7 @@ class ApplicationController < ActionController::Base
     def log_out
       logout = HTTParty.delete('http://172.17.0.1:3001/api/logout', :headers => { 'Content-Type' => 'application/json', 'Authorization' => session[:jwt_token]})
       session[:logged_in] = false
-      render "home"
+      redirect_to root_path
     end
 
 end

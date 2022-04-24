@@ -1,4 +1,4 @@
-# YourFootprint - Group 17
+# Group 24 Project
 ## Initial Setup
 ### Creating the image
 This command will build the docker image, and then run it in a container, and a rails server will be hosted on localhost:3000:
@@ -8,7 +8,7 @@ docker-compose up --build
 ### Running bash on rails container
 After the command finishes running open other terminal window and run the following command to open bash inside the container:
 ```bash
-docker exec -it calendar_web_1 /bin/bash -il
+docker exec -it web-cw-group-24-calendar_primary_1 /bin/bash -il
 ```
 ### Accessing the database from inside the rails container
 To access the database from the rails container you must first access the rails container using [this](#running-bash) command, then type:
@@ -16,6 +16,50 @@ To access the database from the rails container you must first access the rails 
 rails db
 ```
 The password is currently: "group24"
+
+## Using the Authentication Microservice
+
+The Authentication Microservice is run inside a docker container that is booted up by using [this](#creating-the-image) command.
+
+### The topbar
+
+The topbar that is available on every page will handle and deal with logging in, logging out and signing up.
+
+### Helper Methods
+
+There are a few Helper Methods that in the ApplicationController.rb file. 
+
+#### login_http
+
+login_http(loginParams) is a method that sends a http request to the auth microservice that will log the user in provided their credintials are correct.
+
+The method will populate several session variables:
+
+session[:user_id] is a session variable that will store the current users id that is used to access the database this refers to a users "auth_id" attribute, **not** the "id" attribute
+
+session[:jwt_token] is a session variable that will store the current users JWT token.
+
+session[:logged_in] is a session variable that will store a boolean that represents whether or not a user is logged in.
+
+#### auth
+
+auth is a method that will send the current users JWT token to the auth microservice to check that it is still valid, this method should be used to check if the current user should be able to access the database.
+
+auth will set the session variable session[:logged_in] to false if the authentication microservice says that they user is not authenticated (either timed out or logged out else where).
+
+#### sign_up_http
+
+sign_up_http(sign_up_params) is a method that tries to sign up a new user provided that their credentials are not already in use.
+
+session[:user_id], session[:jwt_token] and session[:logged_in] are all assigned by this method.
+
+This method also creates a user in the main database and assigns it the auth_id from auth microservice.
+
+#### log_out
+
+log_out is a method that sends a delete http request containing the JWT token of the current user so that it can be added to the denylist table on the auth database. This table will be searched whenever the auth method is used to determine if the JWT token is still valid.
+
+session[:logged_in] is set to false by this method
 
 ## Adding to the readme
 When editing use this as a guide: https://guides.github.com/features/mastering-markdown/
