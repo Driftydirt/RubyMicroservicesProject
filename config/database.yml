@@ -6,14 +6,6 @@ development:
     username: root
     password: group24
     database: docker_dev
-  auth:
-    adapter: mysql2
-    encoding: utf8
-    host: db_auth
-    username: root
-    password: group24
-    database: auth
-    port: 3307
 
 test:
   primary:
@@ -23,11 +15,3 @@ test:
     username: root
     password: group24
     database: docker_dev
-  auth:
-    adapter: mysql2
-    encoding: utf8
-    host: db_auth
-    username: root
-    password: group24
-    database: auth
-    port: 3307

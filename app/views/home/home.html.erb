@@ -12,12 +12,14 @@
 
   <body>
     <%= yield %>
-    <% if current_user %>
-      <%= link_to "View Profile", user_path(current_user.id) , method: :get, class: 'btn btn-info btn-md' %>
-      <%= link_to "Logout, #{current_user.firstname}?", destroy_user_session_path, method: :delete, class: 'btn btn-warning btn-md' %>
+    <%= link_to "Authorize", home_test_auth_path, class: 'btn btn-warning btn-md' %>
+
+    <% if session[:logged_in] %>
+      <%= link_to "Logout", home_test_log_out_path, class: 'btn btn-warning btn-md' %>
     <% else %>
-      <%= link_to "Login", new_user_session_path,  class: 'btn btn-info btn-md' %>
-      <%= link_to "Sign up", new_user_registration_path,  class: 'btn btn-info btn-md' %>
+      <%= link_to "Login", home_test_path,  class: 'btn btn-info btn-md' %>
+      <%= link_to "Sign up", home_test_sign_up_path,  class: 'btn btn-info btn-md' %>
     <% end %>
+
   </body>
 </html>
