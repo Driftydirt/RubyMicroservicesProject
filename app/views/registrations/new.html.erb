@@ -1,0 +1,47 @@
+<div class="row pt-5">
+  <div class="col-md-6 offset-md-3 text-box">
+    <h2 class="text-center">Sign up</h2>
+
+    <%= form_for @sign_up_validation, as: :sign_up_validation, url: sign_up_send_path do |f| %>
+      <div class="paragraph">
+        <div class="field row", style="margin-top: 10px;">
+          <%= f.label :email, "Email", class: "col-sm-4 text-sm-end" %>
+          <%= f.email_field :email, class:"col-sm-7", required: true %>
+        </div>
+
+        <div class="field row", style="margin-top: 10px;">
+          <%= f.label :password, "Password", class: "col-sm-4 text-sm-end" %>
+          <div class="col-sm-7">
+            <div class="row">
+              <%= f.password_field :password, class:"col", required: true %>
+            </div>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %>
+          </div>  
+        </div>
+
+        <div class="field row", style="margin-top: 10px;">
+          <%= f.label :password_confirmation, "Confirm Password", class: "col-sm-4 text-sm-end" %>
+          <%= f.password_field :password_confirmation, class:"col-sm-7", required: true  %>
+        </div>
+        <% if @sign_up_validation.errors.full_messages.any? %>
+          <% @sign_up_validation.errors.full_messages.each do |error_message| %>
+            <div class="row field">
+              <div class="alert alert-danger error_message offset-sm-4 col-sm-7" role="alert">
+                <%= error_message %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+
+        <div class="actions text-center">
+          <%= submit_tag "Sign up", class: "btn btn-info text-center margin_top" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="col offset-sm-3">
+  <%= link_to "Log In", new_user_path, class: "btn btn-info text-center margin_top" %>
+</div>

@@ -17,7 +17,7 @@ class HomeController < ApplicationController
     end
 
     def test_sign_up
-        sign_up_params = {"email" => "test2@surrey.ac.uk", "password" => "1234567"}
+        sign_up_params = {"email" => "test3@surrey.ac.uk", "password" => "1234567"}
         sign_up_test(sign_up_params)
     end
 

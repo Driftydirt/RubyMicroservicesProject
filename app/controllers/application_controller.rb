@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
       session[:jwt_token] = login.header['authorization']
 
       session[:logged_in] = true
-      
+
       render "home"
     end
 
@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
       render "home"
     end 
 
-    def sign_up_test(sign_up_params)
+    def sign_up_http(sign_up_params)
       sign_up = HTTParty.post('http://172.17.0.1:3001/api/signup', :body => {
               :user => {
               :email => sign_up_params['email'],
@@ -40,12 +40,23 @@ class ApplicationController < ActionController::Base
               }}.to_json,
               :headers => { 'Content-Type' => 'application/json'})
 
-      session[:user_id] = sign_up.body['id']
-      session[:jwt_token] = sign_up.header['authorization']
-      session[:logged_in] = true
       puts sign_up
+      if sign_up['errors'] != nil
+        session[:http_errors] = sign_up['errors']
+        redirect_to sign_up_path
+      else
+        session[:user_id] = sign_up['data']['id']
+        session[:jwt_token] = sign_up.header['authorization']
+        session[:logged_in] = true
 
-      render "home"
+        user = User.new(:auth_id => session[:user_id])
+        user.save!
+        puts "kill"
+        redirect_to root_path
+      end
+
+
+      
     end
 
     def log_out
