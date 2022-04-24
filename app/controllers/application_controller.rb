@@ -11,19 +11,12 @@ class ApplicationController < ActionController::Base
       }.to_json,
       :headers => { 'Content-Type' => 'application/json'})
 
-      puts session[:user_id]
       session[:user_id] = login['data']['id']
-      puts "1"
 
       session[:jwt_token] = login.header['authorization']
-      puts "1"
 
       session[:logged_in] = true
-      puts "1"
-
-
-      puts "1"
-
+      
       render "home"
     end
 
