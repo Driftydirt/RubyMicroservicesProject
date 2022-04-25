@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   post 'sign_up/send', to: 'registrations#sign_up'
   get 'login', to: 'sessions#new'
   post 'login/send', to: 'sessions#login'
+  get 'home/reminder_email_test', to: 'home#reminder_email_test'
 
 end

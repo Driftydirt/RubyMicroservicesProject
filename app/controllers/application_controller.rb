@@ -65,4 +65,15 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
 
+    def reminder_email(emails, reminder)
+      email = HTTParty.post('http://172.17.0.1:3002/reminder', :body => {
+        :emails => emails,
+        :event => {
+          :title => reminder["title"],
+          :description => reminder["description"]
+        }
+      })
+      redirect_to root_path
+    end
+
 end

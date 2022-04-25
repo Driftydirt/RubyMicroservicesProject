@@ -3,8 +3,6 @@ version: "3.7"
 services:
     db_primary:
         image: mysql:5.7
-        # volumes: 
-        #     - db_data:/var/lib/mysql
         restart: always
         environment:
             MYSQL_DATABASE: docker_dev
@@ -46,3 +44,7 @@ services:
             - db_auth
         links:
             - db_auth
+    mailer:
+        image: driftydirt/group24mailer:0.0.3
+        ports: 
+            - "3002:3000"

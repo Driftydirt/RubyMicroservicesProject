@@ -28,6 +28,13 @@ class HomeController < ApplicationController
     def test_auth
         auth
     end
+
+    def reminder_email_test
+        email = ["rtreadwaynest@gmail.com", "ross@alantreadway.net"]
+        reminder = {"title" => "this is a test", "description" => "this is a test description"}
+        reminder_email(email, reminder)
+    end
+
     
 
 end

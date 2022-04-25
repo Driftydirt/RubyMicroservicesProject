@@ -61,6 +61,18 @@ log_out is a method that sends a delete http request containing the JWT token of
 
 session[:logged_in] is set to false by this method
 
+## Mailer Microservice
+
+The Mailer Microservice is run inside a docker container that is booted up by using [this](#creating-the-image) command.
+
+### Helper Methods
+
+There are a few Helper Methods that in the ApplicationController.rb file, which means the methods are available to any controller that inherits from ApplicationController (i.e most controllers).
+
+#### reminder_email
+
+reminder_email(emails, reminder) is a method that takes two inputs, emails and reminder, emails is a list of emails that the reminder needs to be sent to, and the reminder input is a reminder object (currently no model exists, need to implement when reminders are added to the database).
+
 ## Adding to the readme
 When editing use this as a guide: https://guides.github.com/features/mastering-markdown/
 
