@@ -13,6 +13,7 @@
   <body>
     <%= yield %>
     <%= link_to "Reminder", home_reminder_email_test_path, class: 'btn btn-warning btn-md' %> 
+    <%= link_to "Auth", home_test_auth_path, class: 'btn btn-warning btn-md' %> 
     <% if session[:logged_in] %>
       <%= link_to "Logout", home_test_log_out_path, class: 'btn btn-warning btn-md' %>
     <% else %>

@@ -27,7 +27,6 @@ class ApplicationController < ActionController::Base
 
     def auth
       auth = HTTParty.post('http://172.17.0.1:3001/auth', :headers => { 'Content-Type' => 'application/json', 'Authorization' => session[:jwt_token]})
-      puts auth["message"]
       if auth["message"] == "User Authenticated." 
       else 
         session[:logged_in] = false
@@ -73,7 +72,25 @@ class ApplicationController < ActionController::Base
           :description => reminder["description"]
         }
       })
-      redirect_to root_path
     end
 
+
+    def get_emails(user_ids)
+      emails = []
+      email_request = HTTParty.post('http://172.17.0.1:3001/auth/email', :headers => {
+        'Content-Type' => 'application/json', 'Authorization' => session[:jwt_token]
+      },
+      :body => {
+        :ids => user_ids
+      }.to_json)
+
+      if !email_request["error"].nil?
+        emails = nil
+        session[:logged_in] == false
+      else
+        emails = email_request["emails"]
+      end
+      return emails
+    end    
+  
 end

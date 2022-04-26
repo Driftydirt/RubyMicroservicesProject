@@ -27,13 +27,24 @@ class HomeController < ApplicationController
 
     def test_auth
         auth
+        redirect_to root_path
     end
 
     def reminder_email_test
-        email = ["rtreadwaynest@gmail.com", "ross@alantreadway.net"]
-        reminder = {"title" => "this is a test", "description" => "this is a test description"}
-        reminder_email(email, reminder)
+        email_request = [session[:user_id], "2"]
+        email = get_emails(email_request)
+        if email == nil
+        else
+            reminder = {"title" => "this is a test", "description" => "this is a test description"}
+            reminder_email(email, reminder)
+        end
+
+        redirect_to root_path
+        
     end
+
+
+
 
     
 
