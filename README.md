@@ -61,6 +61,12 @@ log_out is a method that sends a delete http request containing the JWT token of
 
 session[:logged_in] is set to false by this method
 
+#### get_emails
+
+get_emails is a method that takes as inputs an array of user_ids and retrives the email addresses of the corresponding users if the current user is authenticated
+
+session[:logged_in] is set to false if the user is not autheticated by the auth microservice
+
 ## Mailer Microservice
 
 The Mailer Microservice is run inside a docker container that is booted up by using [this](#creating-the-image) command.
