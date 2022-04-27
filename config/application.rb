@@ -19,6 +19,9 @@ module Calendar
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.session_store :cookie_store, key: '_app_session', expire_after: 14.days, :httponly => true
+
+
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
       html_tag
     }
