@@ -31,7 +31,7 @@ class HomeController < ApplicationController
     end
 
     def reminder_email_test
-        email_request = [session[:user_id], "2"]
+        email_request = [session[:user_id]]
         email = get_emails(email_request)
         if email == nil
         else

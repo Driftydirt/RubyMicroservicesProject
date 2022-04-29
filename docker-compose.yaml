@@ -23,7 +23,21 @@ services:
 
         ports:
             - "3307:3307"
-    
+
+    redis:
+        image: redis:latest
+        restart: always
+        ports:
+        - '6379:6379'
+        command: redis-server --save 20 1 --loglevel warning
+        volumes: 
+        - redis:/data
+    sidekiq:
+        depends_on:
+        - 'redis'
+        command: sidekiq -C config/sidekiq.yml
+        image: driftydirt/group24mailer:0.0.5
+
     
     primary:
         build: .
@@ -45,6 +59,14 @@ services:
         links:
             - db_auth
     mailer:
-        image: driftydirt/group24mailer:0.0.3
+        image: driftydirt/group24mailer:0.0.5
         ports: 
             - "3002:3000"
+        environment: 
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
+        links:
+            - redis
+volumes:
+    redis: 
+        driver: local
