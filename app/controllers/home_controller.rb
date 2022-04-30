@@ -6,14 +6,9 @@ class HomeController < ApplicationController
     def home
     end
 
-    # TODO: move bellow code into sessions controller
-
     def test
         login_params = {"email" => "test@surrey.ac.uk", "password" => "123456"}
         login(login_params)
-        puts session[:jwt_token]
-        puts session[:user_id]
-        puts true
     end
 
     def test_sign_up
@@ -41,6 +36,12 @@ class HomeController < ApplicationController
 
         redirect_to root_path
         
+    end
+
+    def reset_email_test
+        email = "ross@alantreadway.net"
+
+        send_reset_email(email)
     end
 
 

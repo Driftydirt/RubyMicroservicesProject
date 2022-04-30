@@ -25,13 +25,20 @@
           <%= f.label :password_confirmation, "Confirm Password", class: "col-sm-4 text-sm-end" %>
           <%= f.password_field :password_confirmation, class:"col-sm-7", required: true  %>
         </div>
+        <% if @sign_up_error != "" %>
+          <div class="row field">
+            <div class="alert alert-danger error_message offset-sm-4 col-sm-7" role="alert">
+              <%= @sign_up_error %>
+            </div>
+          </div>
+       <% end %>
         <% if @sign_up_validation.errors.full_messages.any? %>
           <% @sign_up_validation.errors.full_messages.each do |error_message| %>
             <div class="row field">
               <div class="alert alert-danger error_message offset-sm-4 col-sm-7" role="alert">
                 <%= error_message %>
+                </div>
               </div>
-            </div>
           <% end %>
         <% end %>
         <div class="actions text-center">
@@ -42,5 +49,5 @@
   </div>
 </div>
 <div class="col offset-sm-3">
-  <%= link_to "Log In", new_user_path, class: "btn btn-info text-center margin_top" %>
+  <%= link_to "Log In", login_path, class: "btn btn-info text-center margin_top" %>
 </div>

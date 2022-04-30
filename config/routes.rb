@@ -17,5 +17,10 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new'
   post 'login/send', to: 'sessions#login'
   get 'home/reminder_email_test', to: 'home#reminder_email_test'
+  get 'home/reset_email_test', to: 'home#reset_email_test'
+  get 'reset_password_email', to: 'passwords#new'
+  post 'reset_password_email_setup', to: 'passwords#reset_password_email_setup'
+  get 'reset_password', to: 'passwords#edit'
+  post 'reset_password_setup', to: 'passwords#reset_password_setup'
 
 end

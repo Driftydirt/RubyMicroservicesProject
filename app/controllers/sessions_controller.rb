@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
     def login
         @login_validation = LoginValidation.new(params["login_validation"].permit(:email, :password, :authenticity_token, :commit))
         if @login_validation.valid?
-            puts "valid"
             login_params = {"email" => @login_validation.email, "password" => @login_validation.password}
             login_http(login_params)
         else

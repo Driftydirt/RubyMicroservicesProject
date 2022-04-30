@@ -11,10 +11,8 @@ class ApplicationController < ActionController::Base
       }.to_json,
       :headers => { 'Content-Type' => 'application/json'})
       
-      if login["error"] != nil
-        @login_error = "Email or Password are invalid"
-        render 'new', status: :unprocessable_entity
-      else
+      if login.code == 200
+
         session[:user_id] = login['data']['id']
 
         session[:jwt_token] = login.header['authorization']
@@ -22,6 +20,10 @@ class ApplicationController < ActionController::Base
         session[:logged_in] = true
 
         redirect_to root_path
+        
+      else
+        @login_error = "Email or Password are invalid"
+        render 'new', status: :unprocessable_entity
       end
     end
 
@@ -41,10 +43,8 @@ class ApplicationController < ActionController::Base
               }}.to_json,
               :headers => { 'Content-Type' => 'application/json'})
 
-      if sign_up['errors'] != nil
-        session[:http_errors] = sign_up['errors']
-        redirect_to sign_up_path
-      else
+      if sign_up.code == 200
+
         session[:user_id] = sign_up['data']['id']
         session[:jwt_token] = sign_up.header['authorization']
         session[:logged_in] = true
@@ -52,6 +52,10 @@ class ApplicationController < ActionController::Base
         user = User.new(:auth_id => session[:user_id])
         user.save!
         redirect_to root_path
+        
+      else
+        @sign_up_error = "Email is already in use"
+        render 'new', status: :unprocessable_entity
       end
 
 
@@ -84,13 +88,35 @@ class ApplicationController < ActionController::Base
         :ids => user_ids
       }.to_json)
 
-      if !email_request["error"].nil?
+      if email_request.code == 401
         emails = nil
         session[:logged_in] == false
       else
         emails = email_request["emails"]
       end
       return emails
-    end    
+    end
+    
+    def send_reset_email(email)
+      reset_token_request = HTTParty.post('http://172.17.0.1:3001/reset_password_token', :body => {
+        :email => email
+      })
+      if reset_token_request.code == 200
+        reset_token = reset_token_request["token"]
+        reset_email_request = HTTParty.post('http://172.17.0.1:3002/reset_password', :body => {
+          :email => email,
+          :token => reset_token
+        })
+      end
+      redirect_to root_path
+    end
+
+    def send_reset_password(password, token)
+      reset_password_request = HTTParty.put('http://172.17.0.1:3001/reset_password', :body => {
+        :password => password,
+        :reset_password_token => token
+      })
+      redirect_to login_path
+    end
   
 end
