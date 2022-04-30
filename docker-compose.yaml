@@ -36,7 +36,7 @@ services:
         depends_on:
         - 'redis'
         command: sidekiq -C config/sidekiq.yml
-        image: driftydirt/group24mailer:0.0.6
+        image: driftydirt/group24mailer:0.0.8
 
     
     primary:
@@ -59,7 +59,7 @@ services:
         links:
             - db_auth
     mailer:
-        image: driftydirt/group24mailer:0.0.6
+        image: driftydirt/group24mailer:0.0.8
         ports: 
             - "3002:3000"
         environment: 

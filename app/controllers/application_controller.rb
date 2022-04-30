@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
 
 
     protected
-   
     def login_http(loginParams)
         login = HTTParty.post('http://172.17.0.1:3001/api/login', :body => {
               :user => {
@@ -68,12 +67,13 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
 
-    def reminder_email(emails, reminder)
+    def reminder_email(emails, event)
       email = HTTParty.post('http://172.17.0.1:3002/reminder', :body => {
         :emails => emails,
         :event => {
-          :title => reminder["title"],
-          :description => reminder["description"]
+          :title => event["title"],
+          :description => event["description"],
+          :date_time => event["date_time"]
         }
       })
     end
@@ -118,5 +118,17 @@ class ApplicationController < ActionController::Base
       })
       redirect_to login_path
     end
+
+    def send_invite(emails, event)
+    invite_request = HTTParty.post('http://172.17.0.1:3002/invite', :body => {
+      :emails => emails,
+      :event => {
+          :title => event["title"],
+          :description => event["description"],
+          :date_time => event["date_time"],
+        }
+    })
+    end
+
   
 end

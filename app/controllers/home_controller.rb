@@ -30,7 +30,7 @@ class HomeController < ApplicationController
         email = get_emails(email_request)
         if email == nil
         else
-            reminder = {"title" => "this is a test", "description" => "this is a test description"}
+            reminder = {"title" => "this is a test", "description" => "this is a test description", "date_time" => Time.now + 4.hours}
             reminder_email(email, reminder)
         end
 
@@ -42,6 +42,17 @@ class HomeController < ApplicationController
         email = "ross@alantreadway.net"
 
         send_reset_email(email)
+    end
+
+    def invite_test
+        email_request = [session[:user_id]]
+        emails = get_emails(email_request)
+        if emails == nil
+        else
+            invite = {"title" => "this is a test", "description" => "this is a test description", "date_time" => (Time.now + 4.hours)}
+            send_invite(emails, invite)
+        end
+        redirect_to root_path
     end
 
 
