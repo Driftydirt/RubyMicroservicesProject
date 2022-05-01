@@ -12,11 +12,17 @@
 
   <body>
     <%= yield %>
-    <%= link_to "Reminder", home_reminder_email_test_path, class: 'btn btn-warning btn-md' %> 
-    <%= link_to "Auth", home_test_auth_path, class: 'btn btn-warning btn-md' %>
-    <%= link_to "Invite", home_invite_test_path, class: 'btn btn-warning btn-md' %>
-
+    
     <% if session[:logged_in] %>
+      <%= link_to "Reminder", home_reminder_email_test_path, class: 'btn btn-warning btn-md' %> 
+      <%= link_to "Auth", home_test_auth_path, class: 'btn btn-warning btn-md' %>
+      <%= link_to "Invite", home_invite_test_path, class: 'btn btn-warning btn-md' %>
+      <%= link_to "Create Event", home_event_test_path, class: 'btn btn-warning btn-md' %>
+      <%= link_to "Get My Created Events", home_created_event_test_path, class: 'btn btn-warning btn-md' %>
+      <%= link_to "Get My Events", home_events_test_path, class: 'btn btn-warning btn-md' %>
+      <%= link_to "Update Event", home_update_event_test_path, class: 'btn btn-warning btn-md' %>
+      <%= link_to "Delete Event", home_delete_event_test_path, class: 'btn btn-warning btn-md' %>
+
       <%= link_to "Logout", home_test_log_out_path, class: 'btn btn-warning btn-md' %>
     <% else %>
       <%= link_to "Login", login_path,  class: 'btn btn-info btn-md' %>

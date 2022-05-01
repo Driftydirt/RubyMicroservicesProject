@@ -119,16 +119,141 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
 
-    def send_invite(emails, event)
+    def send_invite(creator, emails, event)
     invite_request = HTTParty.post('http://172.17.0.1:3002/invite', :body => {
       :emails => emails,
+      :creator => creator,
       :event => {
           :title => event["title"],
           :description => event["description"],
-          :date_time => event["date_time"],
+          :date_time => event["scheduledAt"],
         }
     })
     end
+
+    def send_update(creator, emails, event)
+      invite_request = HTTParty.post('http://172.17.0.1:3002/update', :body => {
+        :emails => emails,
+        :creator => creator,
+        :event => {
+            :title => event["title"],
+            :description => event["description"],
+            :date_time => event["scheduledAt"],
+          }
+      })
+    end
+
+    def send_delete(creator, emails, event)
+        invite_request = HTTParty.post('http://172.17.0.1:3002/delete', :body => {
+          :emails => emails,
+          :creator => creator,
+          :event => {
+              :title => event.title,
+              :description => event.description,
+              :date_time => event.scheduledAt,
+            }
+        })
+    end
+
+    def create_event_request(event)
+      event_request = HTTParty.post('http://172.17.0.1:3003/events', :body => {
+        :event => {
+          :title => event.title,
+          :description => event.description,
+          :active => event.active,
+          :scheduledAt => event.scheduledAt,
+          :creator => event.creator,
+          :invitees => event.invitees
+        }
+      })
+      return event_request
+    end
+
+    def update_event_request(event)
+      event_request = HTTParty.put('http://172.17.0.1:3003/events', :body => {
+        :event => {
+          :title => event.title,
+          :description => event.description,
+          :active => event.active,
+          :scheduledAt => event.scheduledAt,
+          :creator => event.creator,
+          :invitees => event.invitees
+        },
+        :id => event.id
+      })
+      return event_request
+    
+    end
+
+    def delete_event_request(event)
+      event_request = HTTParty.delete('http://172.17.0.1:3003/events', :body => {
+        :id => event.id
+      })
+      return event_request
+    
+    end
+
+    def create_event(event_validation)
+      auth
+      if session[:logged_in]
+        event = create_event_request(event_validation)
+        creator = get_emails(event["creator"])
+        email_addresses = get_emails(event["invitees"])
+        send_invite(creator, email_addresses, event)
+      end
+      # render created_event
+    end    
+
+    def get_my_created_events(id)
+      auth
+      if session[:logged_in]
+        event_request = HTTParty.post('http://172.17.0.1:3003/my_created_events', :body => {
+          :id => id
+        })
+        return event_request
+      end
+      
+    end
+
+    def get_my_events(id)
+      auth
+      if session[:logged_in]
+        event_request = HTTParty.post('http://172.17.0.1:3003/my_events', :body => {
+          :id => id
+        })
+        puts event_request
+      end
+    end
+
+    def update_event(event_validation)
+      auth
+      if session[:logged_in]
+        event = update_event_request(event_validation)
+        if event.code == 404
+          puts event.code, event["error"]
+        else
+          creator = get_emails(event["creator"])
+          email_addresses = get_emails(event["invitees"])
+          send_update(creator, email_addresses, event)
+        end
+      end
+      # render created_event
+    end
+
+    def delete_event(event)
+      auth
+      if session[:logged_in]
+        request = delete_event_request(event)
+        if request.code == 404
+          puts request.code, request["error"]
+        else
+          creator = get_emails(event.creator)
+          email_addresses = get_emails(event.invitees)
+          send_delete(creator, email_addresses, event)
+        end
+      end
+      # render created_event
+    end 
 
   
 end

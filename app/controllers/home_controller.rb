@@ -55,6 +55,37 @@ class HomeController < ApplicationController
         redirect_to root_path
     end
 
+    def event_test
+        create_event(generate_event)
+        redirect_to root_path
+    end
+
+    def created_event_test
+        id = "2"
+        get_my_created_events(id)
+        redirect_to root_path
+    end
+
+    def generate_event
+        event = EventValidation.new(:id => "4", :title => "this is a test title", :description => "this is a test description", :active => true, :scheduledAt => (Time.now + 1.hours), :creator => session[:user_id], :invitees => [session[:user_id]])
+    end
+
+    def events_test
+        id = "2"
+        get_my_events(id)
+        redirect_to root_path
+    end
+
+    def update_event_test
+        update_event(generate_event)
+        redirect_to root_path
+    end
+
+    def delete_event_test
+        delete_event(generate_event)
+        redirect_to root_path
+    end
+
 
 
 

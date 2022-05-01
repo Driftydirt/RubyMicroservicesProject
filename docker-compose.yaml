@@ -23,6 +23,19 @@ services:
 
         ports:
             - "3307:3307"
+    db_events:
+        image: postgres:latest
+        # volumes: 
+        #     - db_data:/var/lib/mysql
+        restart: always
+        environment:
+            POSTGRES_DB: event_microservice
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: group24
+
+        ports:
+            - 3308:3308
+    
 
     redis:
         image: redis:latest
@@ -36,7 +49,7 @@ services:
         depends_on:
         - 'redis'
         command: sidekiq -C config/sidekiq.yml
-        image: driftydirt/group24mailer:0.0.8
+        image: driftydirt/group24mailer:0.0.9
 
     
     primary:
@@ -59,7 +72,7 @@ services:
         links:
             - db_auth
     mailer:
-        image: driftydirt/group24mailer:0.0.8
+        image: driftydirt/group24mailer:0.0.9
         ports: 
             - "3002:3000"
         environment: 
@@ -67,6 +80,14 @@ services:
             REDIS_PORT: 6379
         links:
             - redis
+    event:
+        image: driftydirt/group24events:0.0.1
+        ports:
+            - 3003:3000
+        depends_on:
+            - db_events
+        links:
+            - db_events
 volumes:
     redis: 
         driver: local
