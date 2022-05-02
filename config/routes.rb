@@ -22,7 +22,6 @@ Rails.application.routes.draw do
   post 'reset_password_email_setup', to: 'passwords#reset_password_email_setup'
   get 'reset_password', to: 'passwords#edit'
   post 'reset_password_setup', to: 'passwords#reset_password_setup'
-  get 'home/invite_test', to: 'home#invite_test'
   get 'home/event_test', to: 'home#event_test'
   get 'home/created_event_test', to: 'home#created_event_test'
   get 'home/events_test', to: 'home#events_test'
