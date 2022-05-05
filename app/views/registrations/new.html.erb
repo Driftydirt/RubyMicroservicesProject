@@ -1,53 +1,62 @@
-<div class="row pt-5">
-  <div class="col-md-6 offset-md-3 text-box">
-    <h2 class="text-center">Sign up</h2>
+<body>
+  <header class="mb-auto">
+    <div style="padding-left:20px;">
+      <a href = "/"><%= image_tag("Logo.png", width: '50px')%></a>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page" href="/">Home</a>
+        <a class="nav-link" href="/login">Login</a>
+        <a style="padding-right:10px;" class="nav-link" href="/sign_up">Sign up</a>
+      </nav>
+    </div>
+  </header>
+  <div class="row pt-5">
+    <div class="col-md-6 offset-md-3 text-box">
+      <h3 class="text-center", style="color: White;">Sign up</h3>
 
-    <%= form_for @sign_up_validation, as: :sign_up_validation, url: sign_up_send_path do |f| %>
-      <div class="paragraph">
-        <div class="field row", style="margin-top: 10px;">
-          <%= f.label :email, "Email", class: "col-sm-4 text-sm-end" %>
-          <%= f.email_field :email, class:"col-sm-7", required: true %>
-        </div>
-
-        <div class="field row", style="margin-top: 10px;">
-          <%= f.label :password, "Password", class: "col-sm-4 text-sm-end" %>
-          <div class="col-sm-7">
-            <div class="row">
-              <%= f.password_field :password, class:"col", required: true %>
-            </div>
-            <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
-            <% end %>
-          </div>  
-        </div>
-
-        <div class="field row", style="margin-top: 10px;">
-          <%= f.label :password_confirmation, "Confirm Password", class: "col-sm-4 text-sm-end" %>
-          <%= f.password_field :password_confirmation, class:"col-sm-7", required: true  %>
-        </div>
-        <% if @sign_up_error != "" %>
-          <div class="row field">
-            <div class="alert alert-danger error_message offset-sm-4 col-sm-7" role="alert">
-              <%= @sign_up_error %>
-            </div>
+      <%= form_for @sign_up_validation, as: :sign_up_validation, url: sign_up_send_path do |f| %>
+        <div class="paragraph">
+          <div class="field row", style="margin-top: 10px;">
+            <%= f.label :email, "Email", class: "form-label col-sm-4 text-sm-end" %>
+            <%= f.email_field :email, class:"col-sm-7", required: true %>
           </div>
-       <% end %>
-        <% if @sign_up_validation.errors.full_messages.any? %>
-          <% @sign_up_validation.errors.full_messages.each do |error_message| %>
-            <div class="row field">
-              <div class="alert alert-danger error_message offset-sm-4 col-sm-7" role="alert">
-                <%= error_message %>
-                </div>
+
+          <div class="field row", style="margin-top: 10px;">
+            <%= f.label :password, "Password", class: "form-label col-sm-4 text-sm-end" %>
+            <div class="col-sm-7">
+              <div class="row">
+                <%= f.password_field :password, class:"col", required: true %>
               </div>
-          <% end %>
+              <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %>
+            </div>  
+          </div>
+
+          <div class="field row", style="margin-top: 10px;">
+            <%= f.label :password_confirmation, "Confirm Password", class: "form-label col-sm-4 text-sm-end" %>
+            <%= f.password_field :password_confirmation, class:"col-sm-7", required: true  %>
+          </div>
+          <% if @sign_up_error != "" %>
+            <div class="row field">
+              <div class="alert alert-danger error_message offset-sm-4 col-sm-7", style = "color: White;" role="alert">
+                <%= @sign_up_error %>
+              </div>
+            </div>
         <% end %>
-        <div class="actions text-center">
-          <%= submit_tag "Sign up", class: "btn btn-info text-center margin_top" %>
+          <% if @sign_up_validation.errors.full_messages.any? %>
+            <% @sign_up_validation.errors.full_messages.each do |error_message| %>
+              <div class="row field">
+                <div class="alert alert-danger error_message offset-sm-4 col-sm-7" , style = "color: White;" role="alert">
+                  <%= error_message %>
+                  </div>
+                </div>
+            <% end %>
+          <% end %>
+          <div class="actions text-center", style="padding-left:620px;">
+            <%= submit_tag "Sign up", class: "btn btn-success text-center margin_top" %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
-<div class="col offset-sm-3">
-  <%= link_to "Log In", login_path, class: "btn btn-info text-center margin_top" %>
-</div>
+</body>

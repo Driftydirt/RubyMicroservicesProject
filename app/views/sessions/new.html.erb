@@ -1,59 +1,66 @@
+<body>
+  <header class="mb-auto">
+    <div style="padding-left:20px;">
+      <a href = "/"><%= image_tag("Logo.png", width: '50px')%></a>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page" href="/">Home</a>
+        <a class="nav-link" href="/login">Login</a>
+        <a style="padding-right:10px;" class="nav-link" href="/sign_up">Sign up</a>
+      </nav>
+    </div>
+  </header>
+  <div class="row pt-5 main-row">
+    <div class="col-sm-5 offset-sm-4 text-box default_form">
+      <h3 style="color: White;" , class="text-center">Log in</h3>
 
-<div class="row pt-5 main-row">
-  <div class="col-sm-4 offset-sm-4 text-box">
-    <h2 class="text-center">Log in</h2>
+      <%= form_for @login_validation, as: :login_validation, url: login_send_path do |f| %>
+        <div class="paragraph">
+          <div class="field row", style="margin-top: 10px;">
+            <%= f.label :email, class: "form-label col-sm-4 text-sm-end"%><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"col-sm-7" %>
+          </div>
 
-    <%= form_for @login_validation, as: :login_validation, url: login_send_path do |f| %>
-      <div class="paragraph">
-        <div class="field row", style="margin-top: 10px;">
-          <%= f.label :email, class: "col-sm-4 text-sm-end"%><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"col-sm-7" %>
-        </div>
-
-        <div class="field row", style="margin-top: 10px;">
-          <%= f.label :password, class: "col-sm-4 text-sm-end" %><br />
-          <%= f.password_field :password, autocomplete: "current-password", class:"col-sm-7" %>
-        </div>
-        <% if @login_error != "" %>
-            <div class="row field">
-              <div class="alert alert-danger error_message offset-sm-4 col-sm-7" role="alert">
-                <%= @login_error %>
-              </div>
-            </div>
-          <% end %>
-          <% if @login_validation.errors.full_messages.any? %>
-            <% @login_validation.errors.full_messages.each do |error_message| %>
+          <div class="field row", style="margin-top: 10px;">
+            <%= f.label :password, class: "form-label col-sm-4 text-sm-end" %><br />
+            <%= f.password_field :password, autocomplete: "current-password", class:"col-sm-7" %>
+          </div>
+          <% if @login_error != "" %>
               <div class="row field">
-                <div class="alert alert-danger error_message offset-sm-4 col-sm-7" role="alert">
-                  <%= error_message %>
+                <div class="alert alert-danger error_message offset-sm-4 col-sm-7", style = "color: White;" role="alert">
+                  <%= @login_error %>
                 </div>
               </div>
             <% end %>
-          <% end %>
-        <div class="row", style="margin-top: 10px;">
-          <div class="col-md-4">
+            <% if @login_validation.errors.full_messages.any? %>
+              <% @login_validation.errors.full_messages.each do |error_message| %>
+                <div class="row field">
+                  <div class="alert alert-danger error_message offset-sm-4 col-sm-7", style = "color: White;" role="alert">
+                    <%= error_message %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          <div class="row", style="margin-top: 10px;">
+            <div class="col-md-4">
+            </div>
+            
+            
+            <div class="actions text-center", style="padding-left:195px;">
+              <%= link_to "Forgot Password?", reset_password_email_path,  class: 'btn btn-danger' %>
+              <%= link_to "Create Account", sign_up_path, class: "btn btn-info" %>
+              <%= f.submit "Log in", class: "btn btn-success" %>
+            </div>
           </div>
           
-          
-          <div class="col-sm-7", style="padding-left:0px;">
-            <%= link_to "Forgot Password?", reset_password_email_path,  class: 'btn btn-info btn-md' %>
-          </div>
-          <div class="col-md-1">
+          <div class=>
           </div>
         </div>
-        
-        <div class="actions text-center">
-          <%= f.submit "Log in", class: "btn btn-info text-center margin_top" %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-  
-  
-  <div class="row">
-    <div class="col offset-sm-4">
-      <%= link_to "Create Account", sign_up_path, class: "btn btn-info text-center margin_top" %>
+      <% end %>
+    </div>
+    
+    
+    <div class="row">
+
     </div>
   </div>
-</div>
-
+</body>

@@ -1,10 +1,15 @@
 .text-box {
     border-radius: 25px;
-    background-color: greenyellow; 
+    background-color: rgb(54, 56, 54); 
+    border-style: solid;
+    border-color: rgb(255, 255, 255);
     margin: 20px;
     padding: 20px;
 }
 
 .margin_top {
     margin-top: 10px;
+}
+.form-label{
+    color:antiquewhite
 }

@@ -221,7 +221,10 @@ class ApplicationController < ActionController::Base
         event_request = HTTParty.post('http://172.17.0.1:3003/my_events', :body => {
           :id => id
         })
-        puts event_request
+        if event_request.code == 404
+          return nil 
+        else 
+          return event_request
       end
     end
 
@@ -254,6 +257,5 @@ class ApplicationController < ActionController::Base
       end
       # render created_event
     end 
-
-  
+  end
 end

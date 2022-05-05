@@ -1,53 +1,66 @@
-<%= link_to "Back", :back, class: "btn btn-success" %>
-<div class="row">
-  <div class="col-md-4 offset-md-2 text-box">
-    <h2 class="text-center">Edit <%= resource_name.to_s.humanize %></h2>
+<body>
+  <header class="mb-auto">
+    <div>
+      <h3 style="color: White;" class="float-md-start mb-0" >Calendar</h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page" href="/">Home</a>
+        <a class="nav-link" href="/login">Login</a>
+        <a style="padding-right:10px;" class="nav-link" href="/sign_up">Sign up</a>
+      </nav>
+    </div>
+  </header>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
-      <div class="paragraph">
-        <div class="field row", style="margin-top: 10px;">
-          <%= f.label :email, class: "col-sm-4 text-sm-end"%>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"col-sm-7" %>
-        </div>
 
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-        <% end %>
+  <%= link_to "Back", :back, class: "btn btn-success" %>
+  <div class="row">
+    <div class="col-md-4 offset-md-2 text-box">
+      <h2 class="text-center">Edit <%= resource_name.to_s.humanize %></h2>
 
-        <div class="field row", style="margin-top: 10px;">
-          <%= f.label :password, class: "col-sm-4 text-sm-end" %>
-          <div class="col-sm-7">
-            <div class="row">
-              <%= f.password_field :password, autocomplete: "new-password", class: "col" %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="paragraph">
+          <div class="field row", style="margin-top: 10px;">
+            <%= f.label :email, class: "col-sm-4 text-sm-end"%>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"col-sm-7" %>
+          </div>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+
+          <div class="field row", style="margin-top: 10px;">
+            <%= f.label :password, class: "col-sm-4 text-sm-end" %>
+            <div class="col-sm-7">
+              <div class="row">
+                <%= f.password_field :password, autocomplete: "new-password", class: "col" %>
+              </div>  
+              <% if @minimum_password_length %>
+                <em class="row"><%= @minimum_password_length %> characters minimum</em>
+              <% end %>
             </div>  
-            <% if @minimum_password_length %>
-              <em class="row"><%= @minimum_password_length %> characters minimum</em>
-            <% end %>
-          </div>  
+          </div>
+
+          <div class="field row", style="margin-top: 10px;">
+            <%= f.label :password_confirmation, class: "col-sm-4 text-sm-end"%><br />
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"col-sm-7" %>
+          </div>
+
+          <div class="field row", style="margin-top: 10px;" >
+            <%= f.label :current_password, class: "col-sm-4 text-sm-end" %>
+            <%= f.password_field :current_password, autocomplete: "current-password", class:"col-sm-7" %>
+          </div>
         </div>
-
-        <div class="field row", style="margin-top: 10px;">
-          <%= f.label :password_confirmation, class: "col-sm-4 text-sm-end"%><br />
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"col-sm-7" %>
+        <div class="actions text-center">
+          <%= f.submit "Update", class: "btn btn-info text-center margin_top" %>
         </div>
+      <% end %>
+    </div>
+    <div class="col-md-4 text-box paragraph text-center">
+      <h2>Cancel my account</h2>
 
-        <div class="field row", style="margin-top: 10px;" >
-          <%= f.label :current_password, class: "col-sm-4 text-sm-end" %>
-          <%= f.password_field :current_password, autocomplete: "current-password", class:"col-sm-7" %>
-        </div>
-      </div>
-      <div class="actions text-center">
-        <%= f.submit "Update", class: "btn btn-info text-center margin_top" %>
-      </div>
-    <% end %>
-  </div>
-  <div class="col-md-4 text-box paragraph text-center">
-    <h2>Cancel my account</h2>
+      <p>If you want to delete your account click the button below</p>
 
-    <p>If you want to delete your account click the button below</p>
+      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class:"btn btn-danger" %>
 
-    <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class:"btn btn-danger" %>
-
-  </div>
-</div>
+    </div>
+</body>

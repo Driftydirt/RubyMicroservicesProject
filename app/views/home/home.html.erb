@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Calendar</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -9,25 +8,80 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+  <section class="content">
+    <body>
+      <%# <header class="mb-auto">
+        <div>
+          <h3 style = "color: White;" class="float-md-start mb-0">Calendar</h3>
+          <nav class="nav nav-masthead justify-content-center float-md-end">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="#">Login</a>
+            <a class="nav-link" href="#">Sign up</a>
+          </nav>
+        </div>
+      </header> %>
+        <%= yield %>
+        
+        <% if session[:logged_in] %>
+          <header class="mb-auto">
+            <div style="padding-left:20px;">
+              <a href="/"><%= image_tag("Logo.png", width: '50px')%></a>
+              <nav class="nav nav-masthead justify-content-center float-md-end">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link" href="/home/reminder_email_test">Reminder</a>
+                <a class="nav-link" href="/home/test_auth">Auth</a>
+                <a class="nav-link" href="/home/invite_test">Invite</a>
+                <a class="nav-link" href="/home/event_test">Create Event</a>
+                <a class="nav-link" href="/home/created_event_test">Get My Created Events</a>
+                <a class="nav-link" href="/home/events_test">Get My Events</a>
+                <a class="nav-link" href="/home/update_event_test">Update Event</a>
+                <a class="nav-link" href="/home/delete_event_test">Delete Event</a>               
+                <a style="padding-right:10px;" class="nav-link" href="/home/test_log_out">Log out</a> 
+              </nav>
+            </div>
+          </header>
+          
+          <% if @events != nil %>
+          <table class="table table-dark">
+            <tr>
+              <th scope="col">Event Number</th>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Active</th>
+              <th scope="col">Scheduled At</th>
+              <th scope="col">Created At</th>
+              <th scope="col">Last Updated</th>
+              <th scope="col">Creator</th>
+              <th scope="col">Invited Users</th>
+            </tr>
+            <% @events.each do |event| %>
+              <tr>
+                <td><%= event["id"] %></td>
+                <td><%= event["title"] %></td>
+                <td><%= event["description"] %></td>
+                <td><%= event["active"] %></td>
+                <td><%= event["scheduledAt"] %></td>
+                <td><%= event["created_at"] %></td>
+                <td><%= event["updated_at"] %></td>
+                <td><%= event["creator"] %></td>
+                <td><%= event["invitees"] %></td>
+              </tr>
+            <% end %>
+          <% end %>
+          </table>
 
-  <body>
-    <%= yield %>
-    
-    <% if session[:logged_in] %>
-      <%= link_to "Reminder", home_reminder_email_test_path, class: 'btn btn-warning btn-md' %> 
-      <%= link_to "Auth", home_test_auth_path, class: 'btn btn-warning btn-md' %>
-      <%= link_to "Invite", home_invite_test_path, class: 'btn btn-warning btn-md' %>
-      <%= link_to "Create Event", home_event_test_path, class: 'btn btn-warning btn-md' %>
-      <%= link_to "Get My Created Events", home_created_event_test_path, class: 'btn btn-warning btn-md' %>
-      <%= link_to "Get My Events", home_events_test_path, class: 'btn btn-warning btn-md' %>
-      <%= link_to "Update Event", home_update_event_test_path, class: 'btn btn-warning btn-md' %>
-      <%= link_to "Delete Event", home_delete_event_test_path, class: 'btn btn-warning btn-md' %>
-
-      <%= link_to "Logout", home_test_log_out_path, class: 'btn btn-warning btn-md' %>
-    <% else %>
-      <%= link_to "Login", login_path,  class: 'btn btn-info btn-md' %>
-      <%= link_to "Sign up", sign_up_path,  class: 'btn btn-info btn-md' %>
-    <% end %>
-
-  </body>
+        <% else %>
+          <header class="mb-auto">
+            <div style="padding-left:20px;">
+              <a href = "/"><%= image_tag("Logo.png", width: '50px') %></a>
+              <nav class="nav nav-masthead justify-content-center float-md-end">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link" href="/login">Login</a>
+                <a style="padding-right:10px;" class="nav-link" href="/sign_up">Sign up</a>
+              </nav>
+            </div>
+          </header>
+        <% end %>
+    </body>
+  </section>
 </html>
