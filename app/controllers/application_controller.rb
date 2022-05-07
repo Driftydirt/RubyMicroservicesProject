@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
     def auth
       auth = HTTParty.post('http://172.17.0.1:3001/auth', :headers => { 'Content-Type' => 'application/json', 'Authorization' => session[:jwt_token]})
-      if auth["message"] == "User Authenticated." 
+      if auth.code != 401
       else 
         session[:logged_in] = false
       end
@@ -47,9 +47,6 @@ class ApplicationController < ActionController::Base
         session[:user_id] = sign_up['data']['id']
         session[:jwt_token] = sign_up.header['authorization']
         session[:logged_in] = true
-
-        user = User.new(:auth_id => session[:user_id])
-        user.save!
         redirect_to root_path
         
       else
@@ -88,9 +85,8 @@ class ApplicationController < ActionController::Base
         :ids => user_ids
       }.to_json)
 
-      if email_request.code == 401
+      if email_request.code == 404
         emails = nil
-        session[:logged_in] == false
       else
         emails = email_request["emails"]
       end
@@ -210,7 +206,11 @@ class ApplicationController < ActionController::Base
         event_request = HTTParty.post('http://172.17.0.1:3003/my_created_events', :body => {
           :id => id
         })
-        return event_request
+        if event_request.code == 404
+          return nil 
+        else 
+          return event_request
+        end
       end
       
     end
@@ -225,6 +225,7 @@ class ApplicationController < ActionController::Base
           return nil 
         else 
           return event_request
+        end
       end
     end
 
@@ -257,5 +258,4 @@ class ApplicationController < ActionController::Base
       end
       # render created_event
     end 
-  end
 end

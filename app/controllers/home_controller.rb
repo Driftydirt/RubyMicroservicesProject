@@ -4,8 +4,8 @@ require "cgi"
 
 class HomeController < ApplicationController
     def home
-        @events = get_my_events(session[:user_id])
-        puts @events
+        @invited_events = get_my_events(session[:user_id])
+        @created_events = get_my_created_events(session[:user_id])
     end
 
     def test
@@ -58,7 +58,7 @@ class HomeController < ApplicationController
     end
 
     def generate_event
-        event = EventValidation.new(:id => "2", :title => "this is a test title", :description => "this is a test description", :active => true, :scheduledAt => (Time.now + 1.hours), :creator => session[:user_id], :invitees => [session[:user_id]])
+        event = EventValidation.new(:id => "2", :title => "this is a test title", :description => "this is a test description", :active => true, :scheduledAt => (Time.now + 1.hours), :creator => session[:user_id], :invitees => [session[:user_id], 3])
     end
 
     def events_test
@@ -72,8 +72,9 @@ class HomeController < ApplicationController
         redirect_to root_path
     end
 
-    def delete_event_test
-        delete_event(generate_event)
+    def delete_event_setup
+        event = EventValidation.new(:id => params["id"], :title => params["title"], :description => params["description"], :active => params["active"], :scheduledAt => params["scheduledAt"], :creator => params["creator"], :invitees => params["invitees"])
+        delete_event(event)
         redirect_to root_path
     end
 

@@ -10,8 +10,8 @@
     </div>
   </header>
   <div class="row pt-5 main-row">
-    <div class="col-sm-5 offset-sm-4 text-box default_form">
-      <h3 style="color: White;" , class="text-center">Log in</h3>
+    <div class="col-md-4 offset-md-4 text-box default_form">
+      <h3 class="text-center white-text">Log in</h3>
 
       <%= form_for @login_validation, as: :login_validation, url: login_send_path do |f| %>
         <div class="paragraph">
@@ -41,26 +41,15 @@
               <% end %>
             <% end %>
           <div class="row", style="margin-top: 10px;">
-            <div class="col-md-4">
-            </div>
-            
-            
-            <div class="actions text-center", style="padding-left:195px;">
+            <div class="actions col-md-7 col-sm-6 offset-md-4 offset-sm-4" style="padding-left:0px;">
               <%= link_to "Forgot Password?", reset_password_email_path,  class: 'btn btn-danger' %>
               <%= link_to "Create Account", sign_up_path, class: "btn btn-info" %>
               <%= f.submit "Log in", class: "btn btn-success" %>
             </div>
           </div>
-          
-          <div class=>
-          </div>
         </div>
       <% end %>
     </div>
-    
-    
-    <div class="row">
-
     </div>
   </div>
 </body>
