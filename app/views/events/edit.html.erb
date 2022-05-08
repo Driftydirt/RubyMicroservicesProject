@@ -1,21 +1,7 @@
 <body>
-  <header class="mb-auto">
-    <div>
-      <a href = "/"><%= image_tag("Logo.png", width: '50px')%></a>
-        <nav class="nav nav-masthead justify-content-center float-md-end">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-          <a class="nav-link" href="/home/reminder_email_test">Reminder</a>
-          <a class="nav-link" href="/home/test_auth">Auth</a>
-          <a class="nav-link" href="/home/invite_test">Invite</a>
-          <a class="nav-link" href="/create_event">Create Event</a>
-          <a class="nav-link" href="/home/events_test">Get My Events</a>
-          <a style="padding-right:10px;" class="nav-link" href="/home/test_log_out">Log out</a> 
-        </nav>
-    </div>
-  </header>
   <div class="row pt-5">
     <div class="col-md-6 offset-md-3 text-box">
-      <h3 class="text-center", style="color: White;">Create Event</h3>
+      <h3 class="text-center", style="color: White;">Edit Event</h3>
 
       <%= form_for @update_event_validation, as: :update_event_validation, url: update_event_send_path do |f| %>
         <%= f.hidden_field :id, value: params["id"] %>
@@ -31,25 +17,31 @@
             <%= f.text_field :description, class:"col-sm-7", required: true %>
           </div>
 
+          <%= f.hidden_field :active, value: true %>
+
           <div class="field row", style="margin-top: 10px;">
-            <%= f.label :active, "Active:", class: "form-label col-sm-4 text-sm-end" %>
-            <%= f.text_field :active, class:"col-sm-7", required: true %>
+            <%= f.label :scheduledAtTime, "Time", class: "form-label col-sm-4 text-sm-end" %>
+            <%= f.time_field :scheduledAtTime, class:"col-sm-7", required: true %>
           </div>
 
           <div class="field row", style="margin-top: 10px;">
-            <%= f.label :scheduledAt, "Scheduled at:", class: "form-label col-sm-4 text-sm-end" %>
-            <%= f.text_field :scheduledAt, class:"col-sm-7", required: true %>
+            <%= f.label :scheduledAtDate, "Date", class: "form-label col-sm-4 text-sm-end" %>
+            <%= f.date_field :scheduledAtDate, class:"col-sm-7", required: true %>
           </div>
 
-          <div class="field row", style="margin-top: 10px;">
-            <%= f.label :creator, "Creator:", class: "form-label col-sm-4 text-sm-end" %>
-            <%= f.text_field :creator, class:"col-sm-7", required: true %>
-          </div>
-
+          <%= f.hidden_field :creator, value: session[:user_id] %>
+          
           <div class="field row", style="margin-top: 10px;">
             <%= f.label :invitees, "Invites:", class: "form-label col-sm-4 text-sm-end" %>
             <%= f.text_field :invitees, class:"col-sm-7", required: true %>
           </div> 
+          <% if @update_event_error != "" %>
+              <div class="row field">
+                <div class="alert alert-danger error_message offset-sm-4 col-sm-7" role="alert">
+                  <%= @update_event_error %>
+                </div>
+              </div>
+          <% end %>
 
 
           <div class="actions text-center">

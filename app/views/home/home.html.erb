@@ -10,33 +10,14 @@
   </head>
   <section class="content">
     <body>
-      <%# <header class="mb-auto">
-        <div>
-          <h3 style = "color: White;" class="float-md-start mb-0">Calendar</h3>
-          <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-            <a class="nav-link" href="#">Login</a>
-            <a class="nav-link" href="#">Sign up</a>
-          </nav>
-        </div>
-      </header> %>
         <%= yield %>
+        <% flash.each do |message_type, message| %>
+          <div class="alert col-sm-10 offset-sm-1 error_message alert-<%= message_type %>">
+            <%= message %>
+          </div>
+        <% end %>
         
         <% if session[:logged_in] %>
-          <header class="mb-auto">
-            <div style="padding-left:20px;">
-              <a href="/"><%= image_tag("Logo.png", width: '50px')%></a>
-              <nav class="nav nav-masthead justify-content-center float-md-end">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-                <a class="nav-link" href="/home/reminder_email_test">Reminder</a>
-                <a class="nav-link" href="/home/test_auth">Auth</a>
-                <a class="nav-link" href="/home/invite_test">Invite</a>
-                <a class="nav-link" href="/create_event">Create Event</a>
-                <a class="nav-link" href="/home/events_test">Get My Events</a>
-                <a style="padding-right:10px;" class="nav-link" href="/home/test_log_out">Log out</a> 
-              </nav>
-            </div>
-          </header>
           <div class="row">
             <% if @invited_events != nil %>
             <div class="col-sm-10 offset-sm-1 text-box white-text">
@@ -120,17 +101,6 @@
                   
             <% end %>
           </div>
-        <% else %>
-          <header class="mb-auto">
-            <div style="padding-left:20px;">
-              <a href = "/"><%= image_tag("Logo.png", width: '50px') %></a>
-              <nav class="nav nav-masthead justify-content-center float-md-end">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-                <a class="nav-link" href="/login">Login</a>
-                <a style="padding-right:10px;" class="nav-link" href="/sign_up">Sign up</a>
-              </nav>
-            </div>
-          </header>
         <% end %>
     </body>
   </section>

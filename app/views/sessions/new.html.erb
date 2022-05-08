@@ -1,14 +1,4 @@
 <body>
-  <header class="mb-auto">
-    <div style="padding-left:20px;">
-      <a href = "/"><%= image_tag("Logo.png", width: '50px')%></a>
-      <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a class="nav-link active" aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="/login">Login</a>
-        <a style="padding-right:10px;" class="nav-link" href="/sign_up">Sign up</a>
-      </nav>
-    </div>
-  </header>
   <div class="row pt-5 main-row">
     <div class="col-md-4 offset-md-4 text-box default_form">
       <h3 class="text-center white-text">Log in</h3>
@@ -43,7 +33,6 @@
           <div class="row", style="margin-top: 10px;">
             <div class="actions col-md-7 col-sm-6 offset-md-4 offset-sm-4" style="padding-left:0px;">
               <%= link_to "Forgot Password?", reset_password_email_path,  class: 'btn btn-danger' %>
-              <%= link_to "Create Account", sign_up_path, class: "btn btn-info" %>
               <%= f.submit "Log in", class: "btn btn-success" %>
             </div>
           </div>

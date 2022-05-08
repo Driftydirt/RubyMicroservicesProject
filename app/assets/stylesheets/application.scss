@@ -31,8 +31,10 @@
 }
 
 .error_message {
+    margin-top: 0.5rem;
     font-size: 1rem;
     font-weight: 300;
+    background-color: #f8d7da !important;
 }
 .content, .notice, .alert {
     background-color: rgb(54, 56, 54);
@@ -42,6 +44,9 @@
 
 .footer {
     background-color: blue;
+}
+.nav-masthead {
+    margin-bottom: 0.5rem;
 }
 
 .nav-masthead .nav-link {
@@ -58,14 +63,21 @@
 }
   
 .nav-masthead .nav-link + .nav-link {
-    margin-left: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
   
 .nav-masthead .active {
     color: #fff;
     border-bottom-color: #fff;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 
 .white-text {
     color:#fff;
+}
+
+.alert {
+    margin-bottom: 0.5rem;
 }

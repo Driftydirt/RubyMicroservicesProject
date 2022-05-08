@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-
+  add_flash_types :success, :warning, :danger, :info
 
     protected
     def login_http(loginParams)
@@ -91,6 +91,23 @@ class ApplicationController < ActionController::Base
         emails = email_request["emails"]
       end
       return emails
+    end
+
+    def get_ids(emails)
+      ids = []
+      email_request = HTTParty.post('http://172.17.0.1:3001/auth/id', :headers => {
+        'Content-Type' => 'application/json', 'Authorization' => session[:jwt_token]
+      },
+      :body => {
+        :emails => emails
+      }.to_json)
+
+      if email_request.code == 404
+        ids = nil
+      else
+        ids = email_request["ids"]
+      end
+      return ids
     end
     
     def send_reset_email(email)
@@ -234,7 +251,8 @@ class ApplicationController < ActionController::Base
       if session[:logged_in]
         event = update_event_request(event_validation)
         if event.code == 404
-          puts event.code, event["error"]
+          @update_event_error = "Event not found"
+
         else
           creator = get_emails(event["creator"])
           email_addresses = get_emails(event["invitees"])
