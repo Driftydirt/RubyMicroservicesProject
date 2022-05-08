@@ -29,20 +29,19 @@
             <%= f.text_field :description, class:"col-sm-7", required: true %>
           </div>
 
+          <%= f.hidden_field :active, value: true %>
+
           <div class="field row", style="margin-top: 10px;">
-            <%= f.label :active, "Active:", class: "form-label col-sm-4 text-sm-end" %>
-            <%= f.text_field :active, class:"col-sm-7", required: true %>
+            <%= f.label :scheduledAtTime, "Time", class: "form-label col-sm-4 text-sm-end" %>
+            <%= f.time_field :scheduledAtTime, class:"col-sm-7", required: true %>
           </div>
 
           <div class="field row", style="margin-top: 10px;">
-            <%= f.label :scheduledAt, "Scheduled at:", class: "form-label col-sm-4 text-sm-end" %>
-            <%= f.text_field :scheduledAt, class:"col-sm-7", required: true %>
+            <%= f.label :scheduledAtDate, "Date", class: "form-label col-sm-4 text-sm-end" %>
+            <%= f.date_field :scheduledAtDate, class:"col-sm-7", required: true %>
           </div>
 
-          <div class="field row", style="margin-top: 10px;">
-            <%= f.label :creator, "Creator:", class: "form-label col-sm-4 text-sm-end" %>
-            <%= f.text_field :creator, class:"col-sm-7", required: true %>
-          </div>
+          <%= f.hidden_field :creator, value: session[:user_id] %>
 
           <div class="field row", style="margin-top: 10px;">
             <%= f.label :invitees, "Invites:", class: "form-label col-sm-4 text-sm-end" %>

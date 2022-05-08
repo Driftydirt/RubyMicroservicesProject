@@ -4,8 +4,8 @@ class EventValidation
     include ActiveModel::Model
     include ActiveModel::Validations
 
-    attr_accessor :id, :title, :description, :active, :scheduledAt, :creator, :invitees
+    attr_accessor :id, :title, :description, :active, :scheduledAtTime, :scheduledAtDate, :scheduledAt, :creator, :invitees
 
-    validates :title, :description, :active, :scheduledAt, :creator, :invitees, presence: true
+    validates :title, :description, :active, :scheduledAt, :creator, :invitees, :scheduledAtTime, :scheduledAtDate, presence: true
 
 end

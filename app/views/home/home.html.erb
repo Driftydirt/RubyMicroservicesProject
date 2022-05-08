@@ -61,10 +61,18 @@
               </table>
             </div>
             <% else %>
+                <% if @created_events != nil %>
+                  <div class="col-sm-10 offset-sm-1 text-box white-text">
+                    <h3 class="text-center"> Invited Events </h3>
+                    <p class="text-center">Events that you have been invited to will appear here</p>
+                  </div>
+                    
+                <% else %>
                   <div class="col-sm-4 offset-sm-2 text-box white-text">
                     <h3 class="text-center"> Invited Events </h3>
                     <p class="text-center">Events that you have been invited to will appear here</p>
-                </div>
+                  </div>
+                <% end %>
             <% end %>
             <% if @created_events != nil %>
             <div class="col-sm-10 offset-sm-1 text-box white-text">
@@ -87,18 +95,29 @@
                     <td><%= event["scheduledAt"] %></td>
                     <td><% event["invitees"].each do |user| %><%= user%> <% end %></td>
                     <td><%= link_to "Edit Event", update_event_path(id: event["id"]), class:"btn btn-info"%></td>
-                    <td><%= link_to "Delete Event", delete_event_path(event), method: 'post', class:"btn btn-info"%></td>
+                    <td><%= link_to "Delete Event", delete_event_path(event), method: 'post', class:"btn btn-danger"%></td>
 
                   </tr>
                 <% end %>
               </table>
             </div>
             <% else %>
-                  <div class="col-sm-4 text-box white-text text-center">
-                    <h3> Create An Event </h3>
-                    <p>Schedule your first event and invite some people</p>
-                    <%= link_to "Create Event", root_path, class: "btn btn-info"%>
-                  </div>
+              <% if @invited_events != nil %>
+                <div class="col-sm-10 offset-sm-1 text-box white-text text-center">
+                  <h3> Create An Event </h3>
+                  <p>Schedule your first event and invite some people</p>
+                  <%= link_to "Create Event", create_event_path, class: "btn btn-info"%>
+                </div>
+                
+              <% else %>
+                <div class="col-sm-4 text-box white-text text-center">
+                  <h3> Create An Event </h3>
+                  <p>Schedule your first event and invite some people</p>
+                  <%= link_to "Create Event", create_event_path, class: "btn btn-info"%>
+                </div>
+              <% end %>
+
+                  
             <% end %>
           </div>
         <% else %>
