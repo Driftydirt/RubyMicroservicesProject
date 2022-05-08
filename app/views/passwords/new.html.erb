@@ -1,23 +1,31 @@
-<div class="row pt-5">
-  <div class="col-md-6 offset-md-3 text-box white-text">
-
-    <h2 class="text-center">Forgot your password?</h2>
-    <%= form_for @reset_password_email_validation, as: :reset_password_email_validation, url: reset_password_email_setup_path do |f| %>
-
-      <div class="field row paragraph">
-        <%= f.label :email, class: "col-sm-4 text-sm-end" %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-sm-7 margin_top" %>
+    <header class="mb-auto">
+      <div style="padding-left:20px;">
+        <a href = "/"><%= image_tag("Logo.png", width: '50px') %></a>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link" href="/login">Login</a>
+          <a style="padding-right:10px;" class="nav-link" href="/sign_up">Sign up</a>
+        </nav>
       </div>
+    </header>
+    <div class="row pt-5">
+      <div class="col-md-6 offset-md-3 text-box white-text">
 
-      <div class="actions text-center">
-        <%= f.submit "Send me reset password instructions", class: "btn btn-info margin_top" %>
+        <h2 class="text-center">Forgot your password?</h2>
+        <%= form_for @reset_password_email_validation, as: :reset_password_email_validation, url: reset_password_email_setup_path do |f| %>
+
+          <div class="field row paragraph">
+            <%= f.label :email, class: "col-sm-4 text-sm-end" %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-sm-7 margin_top" %>
+          </div>
+
+          <div class="actions text-center">
+            <%= f.submit "Send me reset password instructions", class: "btn btn-info margin_top" %>
+            <%= link_to "Log In", login_path, class: "btn btn-info text-center margin_top" %>
+            <%= link_to "Sign Up", sign_up_path, class: "btn btn-info text-center margin_top" %>
+          </div>
+
+        <% end %>
       </div>
-    <% end %>
-  </div>
-</div>
-<div class="col offset-sm-3">
-  <%= link_to "Log In", login_path, class: "btn btn-info text-center margin_top" %>
-</div>
-<div class="col offset-sm-3">
-  <%= link_to "Sign Up", sign_up_path, class: "btn btn-info text-center margin_top" %>
-</div>
+    </div>
+

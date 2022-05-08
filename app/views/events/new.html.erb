@@ -2,16 +2,15 @@
   <header class="mb-auto">
     <div style="padding-left:20px;">
       <a href = "/"><%= image_tag("Logo.png", width: '50px')%></a>
-              <nav class="nav nav-masthead justify-content-center float-md-end">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-                <a class="nav-link" href="/home/reminder_email_test">Reminder</a>
-                <a class="nav-link" href="/home/test_auth">Auth</a>
-                <a class="nav-link" href="/home/invite_test">Invite</a>
-                <a class="nav-link" href="/create_event">Create Event</a>
-                <a class="nav-link" href="/home/events_test">Get My Events</a>
-                <a class="nav-link" href="/home/update_event_test">Update Event</a>
-                <a style="padding-right:10px;" class="nav-link" href="/home/test_log_out">Log out</a> 
-              </nav>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page" href="/">Home</a>
+        <a class="nav-link" href="/home/reminder_email_test">Reminder</a>
+        <a class="nav-link" href="/home/test_auth">Auth</a>
+        <a class="nav-link" href="/home/invite_test">Invite</a>
+        <a class="nav-link" href="/create_event">Create Event</a>
+        <a class="nav-link" href="/home/events_test">Get My Events</a>
+        <a style="padding-right:10px;" class="nav-link" href="/home/test_log_out">Log out</a> 
+      </nav>
     </div>
   </header>
   <div class="row pt-5">
@@ -49,10 +48,6 @@
             <%= f.label :invitees, "Invites:", class: "form-label col-sm-4 text-sm-end" %>
             <%= f.text_field :invitees, class:"col-sm-7", required: true %>
           </div>  
-
-
-
-
 
           <div class="actions text-center">
             <%= submit_tag "Create Event", class: "btn btn-success text-center margin_top" %>

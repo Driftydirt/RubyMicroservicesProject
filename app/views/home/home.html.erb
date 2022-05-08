@@ -33,7 +33,6 @@
                 <a class="nav-link" href="/home/invite_test">Invite</a>
                 <a class="nav-link" href="/create_event">Create Event</a>
                 <a class="nav-link" href="/home/events_test">Get My Events</a>
-                <a class="nav-link" href="/home/update_event_test">Update Event</a>
                 <a style="padding-right:10px;" class="nav-link" href="/home/test_log_out">Log out</a> 
               </nav>
             </div>
@@ -87,7 +86,7 @@
                     <td><%= event["description"] %></td>
                     <td><%= event["scheduledAt"] %></td>
                     <td><% event["invitees"].each do |user| %><%= user%> <% end %></td>
-                    <td><%= link_to "Edit Event", root_path, class:"btn btn-info"%></td>
+                    <td><%= link_to "Edit Event", update_event_path(id: event["id"]), class:"btn btn-info"%></td>
                     <td><%= link_to "Delete Event", delete_event_path(event), method: 'post', class:"btn btn-info"%></td>
 
                   </tr>

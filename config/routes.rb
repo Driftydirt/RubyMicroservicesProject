@@ -28,5 +28,7 @@ Rails.application.routes.draw do
   get 'home/update_event_test', to: 'home#update_event_test'
   get 'create_event', to: 'events#new'
   post 'create_event/send', to: 'events#generate_event'
+  get 'update_event', to: 'events#edit'
+  post 'update_event/send', to: 'events#update_generated_event'
   post 'delete_event_setup', to: 'home#delete_event_setup', as: 'delete_event'
 end
